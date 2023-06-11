@@ -101,7 +101,7 @@ public class MediaResourceUtil {
             }
 
             ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
-            if (HttpUtil.isKeepAlive(request)) {
+            if (!HttpUtil.isKeepAlive(request)) {
                 lastContentFuture.addListener(ChannelFutureListener.CLOSE);
             }
         }

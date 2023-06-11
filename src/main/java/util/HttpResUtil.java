@@ -2,6 +2,7 @@ package util;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
@@ -24,15 +25,18 @@ public class HttpResUtil {
                 HttpResponseStatus.OK, Unpooled.copiedBuffer(HtmlUtil.generate(dir), CharsetUtil.UTF_8));
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html");
         response.headers().set(HttpHeaderNames.CONTENT_LENGTH, response.content().readableBytes());
-        if (HttpUtil.isKeepAlive(request)) {
-            response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+        ChannelFuture channelFuture = ctx.writeAndFlush(response);
+        if (!HttpUtil.isKeepAlive(request)) {
+            channelFuture.addListener(ChannelFutureListener.CLOSE);
         }
-        ctx.writeAndFlush(response);
     }
 
-    public static void sendGeneralOk(ChannelHandlerContext ctx, HttpResponseStatus status) {
+    public static void sendGeneralOk(ChannelHandlerContext ctx, HttpResponseStatus status, HttpRequest request) {
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status);
-        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        ChannelFuture channelFuture = ctx.writeAndFlush(response);
+        if (!HttpUtil.isKeepAlive(request)) {
+            channelFuture.addListener(ChannelFutureListener.CLOSE);
+        }
     }
 
     public static void sendError(@Nonnull ChannelHandlerContext ctx, @Nonnull HttpResponseStatus status, @Nonnull String message) {

@@ -75,7 +75,7 @@ public class PostFileProcessor implements FileProcessor {
         }
 
         if (decoder.isMultipart() && !msg.decoderResult().isFailure()) {
-            HttpResUtil.sendGeneralOk(ctx, HttpResponseStatus.OK);
+            HttpResUtil.sendGeneralOk(ctx, HttpResponseStatus.OK, request);
             return;
         }
 
