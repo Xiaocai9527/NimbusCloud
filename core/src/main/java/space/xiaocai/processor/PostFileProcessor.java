@@ -1,11 +1,12 @@
-package server.processor;
+package space.xiaocai.processor;
 
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.multipart.*;
 import io.netty.util.CharsetUtil;
-import util.HttpResUtil;
-import util.LogUtil;
+import space.xiaocai.util.HttpResUtil;
+import space.xiaocai.util.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,16 +71,14 @@ public class PostFileProcessor implements FileProcessor {
         } catch (IOException e) {
             HttpResUtil.sendError(ctx, HttpResponseStatus.BAD_REQUEST, "Invalid HTTP request.");
             return;
-        } finally {
-            decoder.destroy();
         }
-
         if (decoder.isMultipart() && !msg.decoderResult().isFailure()) {
-            HttpResUtil.sendGeneralOk(ctx, HttpResponseStatus.OK, request);
-            return;
+            FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+            ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        } else {
+            HttpResUtil.sendError(ctx, HttpResponseStatus.BAD_REQUEST, "Invalid HTTP request.");
         }
-
-        HttpResUtil.sendError(ctx, HttpResponseStatus.BAD_REQUEST, "Invalid HTTP request.");
+        decoder.destroy();
     }
 
     private void saveFileUpload(File dir, FileUpload fileUpload) throws IOException {
@@ -91,13 +90,20 @@ public class PostFileProcessor implements FileProcessor {
 
         File file = new File(dir, decodedFileName);
 
+        // TODO: 2023/6/27
+        // 需要优化, 上传文件需要对比 md5;
+        // 如果上传来的文件, 和本地文件的 md5 已经是一致的，表明文件服务器上已经存在,
+        // 则返回错误码告诉客户端文件已存在；
+
         if (fileUpload.length() == 0) {
             boolean newFile = file.createNewFile();
             LogUtil.logInfo("saveFileUpload createNewFile:%b", newFile);
         } else {
+            LogUtil.logInfo("fileUpload isInMemory:%b", fileUpload.isInMemory());
             if (fileUpload.isInMemory()) {
                 byte[] bytes = fileUpload.get();
-                try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                LogUtil.logInfo("file.length:%s,bytes:%s", file.length(), bytes.length);
+                try (FileOutputStream outputStream = new FileOutputStream(file, true)) {
                     outputStream.write(bytes);
                 }
             } else {

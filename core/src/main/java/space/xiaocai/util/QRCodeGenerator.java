@@ -1,4 +1,4 @@
-package util;
+package space.xiaocai.util;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

@@ -1,9 +1,9 @@
-package util;
+package space.xiaocai.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static server.ServerStarter.logger;
+import static space.xiaocai.ServerStarter.logger;
 
 public class LogUtil {
 

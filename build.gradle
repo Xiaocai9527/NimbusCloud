@@ -3,31 +3,13 @@ plugins {
     id 'application'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-    // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.2'
-
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    implementation 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:30.1.1-jre'
-
-    implementation 'io.netty:netty-all:4.1.90.Final'
+    implementation project('core')
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
-
-    //for qrcode
-    implementation 'com.google.zxing:core:3.4.1'
-    implementation 'com.google.zxing:javase:3.4.1'
 }
 
 test {
@@ -35,9 +17,9 @@ test {
 }
 
 
-mainClassName = 'server.ServerStarter'
+mainClassName = 'Main'
 
-task startJava(type: Exec, dependsOn: 'clean') {
+task start(type: Exec, dependsOn: 'clean') {
     workingDir '.'
     commandLine './gradlew', 'run'
     ignoreExitValue true
@@ -52,9 +34,9 @@ task startJava(type: Exec, dependsOn: 'clean') {
     }
 }
 
-task stopJava(type: Exec) {
+task stop(type: Exec) {
     // 替换为停止 Java 程序的命令
-    commandLine 'pkill', '-f', 'server.ServerStarter'
+    commandLine 'pkill', '-f', 'Main'
 
     ignoreExitValue true
     standardOutput = System.out // 输出标准输出

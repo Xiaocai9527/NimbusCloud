@@ -1,4 +1,4 @@
-package util;
+package space.xiaocai.util;
 
 public class Const {
 

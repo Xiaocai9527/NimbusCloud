@@ -1,4 +1,4 @@
-package util;
+package space.xiaocai.util;
 
 import java.io.FilterInputStream;
 import java.io.IOException;

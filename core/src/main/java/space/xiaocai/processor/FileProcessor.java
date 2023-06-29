@@ -1,4 +1,4 @@
-package server.processor;
+package space.xiaocai.processor;
 
 import java.io.File;
 import java.io.IOException;

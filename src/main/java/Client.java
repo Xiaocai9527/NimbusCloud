@@ -1,7 +1,5 @@
-package client;
-
 import okhttp3.*;
-import util.LogUtil;
+import space.xiaocai.util.LogUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

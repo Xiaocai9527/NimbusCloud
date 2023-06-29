@@ -1,14 +1,14 @@
-package server.handler;
+package space.xiaocai.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpRequest;
-import server.processor.FileProcessor;
-import server.processor.GetFileProcessor;
-import server.processor.PostFileProcessor;
-import util.LogUtil;
+import space.xiaocai.processor.FileProcessor;
+import space.xiaocai.processor.GetFileProcessor;
+import space.xiaocai.processor.PostFileProcessor;
+import space.xiaocai.util.LogUtil;
 
 import java.io.File;
 import java.net.URLDecoder;

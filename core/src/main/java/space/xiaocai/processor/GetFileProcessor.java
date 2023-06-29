@@ -1,14 +1,14 @@
-package server.processor;
+package space.xiaocai.processor;
 
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedFile;
 import org.jetbrains.annotations.NotNull;
-import util.HttpResUtil;
-import util.LogUtil;
-import util.MediaResourceUtil;
-import util.QRCodeGenerator;
+import space.xiaocai.util.HttpResUtil;
+import space.xiaocai.util.LogUtil;
+import space.xiaocai.util.MediaResourceUtil;
+import space.xiaocai.util.QRCodeGenerator;
 
 import java.io.File;
 import java.io.IOException;
