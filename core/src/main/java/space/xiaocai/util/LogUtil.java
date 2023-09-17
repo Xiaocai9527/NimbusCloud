@@ -2,11 +2,11 @@ package space.xiaocai.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
-import static space.xiaocai.ServerStarter.logger;
 
 public class LogUtil {
-
+    public static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     public static void logInfo(String info, Object... args) {
         String timePrefix = getTimePrefix();
         if (args == null || args.length == 0) {

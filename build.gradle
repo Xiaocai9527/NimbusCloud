@@ -9,7 +9,6 @@ repositories {
 
 dependencies {
     implementation project('core')
-    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 }
 
 test {

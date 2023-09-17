@@ -6,8 +6,8 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpRequest;
 import space.xiaocai.processor.FileProcessor;
-import space.xiaocai.processor.GetFileProcessor;
-import space.xiaocai.processor.PostFileProcessor;
+import space.xiaocai.processor.FileGetProcessor;
+import space.xiaocai.processor.FilePostProcessor;
 import space.xiaocai.util.LogUtil;
 
 import java.io.File;
@@ -48,9 +48,9 @@ public class CoreServerHandler extends SimpleChannelInboundHandler<HttpObject> {
             }
             LogUtil.logInfo("method:%s", httpRequest.method().name());
             if (httpRequest.method() == HttpMethod.GET) {
-                fileProcessor = new GetFileProcessor(httpRequest, ctx);
+                fileProcessor = new FileGetProcessor(httpRequest, ctx);
             } else if (httpRequest.method() == HttpMethod.POST) {
-                fileProcessor = new PostFileProcessor(httpRequest, ctx);
+                fileProcessor = new FilePostProcessor(httpRequest, ctx);
             }
             if (fileProcessor != null) {
                 fileProcessor.handleFile(file);

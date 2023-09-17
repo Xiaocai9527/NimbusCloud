@@ -57,8 +57,10 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
         boolean mp4 = decode.endsWith(".mp4");
         boolean png = decode.endsWith(".png");
         boolean apk = decode.endsWith(".apk");
+        boolean mp3 = decode.endsWith(".mp3");
         LogUtil.logInfo("weddingRecord:%b, pdf:%b ,mp4:%b", weddingRecord, pdf, mp4);
-        return weddingRecord || pdf || mp4 || png || apk;
+        return weddingRecord || pdf || mp4 || png || apk || mp3
+                || decode.endsWith("ai.html") || decode.endsWith("styles.css");
     }
 
     private boolean isAuthEmpty(FullHttpRequest request) {

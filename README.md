@@ -1,6 +1,7 @@
 # NimbusCloud/雨云介绍
-File server /Yunpan by netty  
-实现文件服务器/云盘的功能。
+File server /Yunpan by netty, build project by gradle
+* 基于 netty 实现文件服务器/云盘的功能
+* 扩展实现了 RestApi 路由功能, 快速对外提供接口能力
 
 
 ## How to start/开始
@@ -10,16 +11,57 @@ File server /Yunpan by netty
 * chrome open http://127.0.0.1:8080/, can visit your root file
 
 
-## Show results /效果展示
+## Show results /功能展示
 
-不怎么会前端,索性直接通过服务端把 h5 内容生成后返回给浏览器渲染即可,如下首页.
+* 服务端生成前端代码,浏览器渲染
 
 ![首页](./pictures/1.png)
 
-浏览器自带的通过 http 协议可以播放 mp4 文件,如下,顺便还可以当一个家庭影院,平时上班的时候跑一些脚本自动下载电影.
+* 浏览器播放视频
 
 ![视频](./pictures/2.png)
 
-而且还实现了将文件拖动到网页上传文件的功能,我有时候觉得一些需要收藏或者后期要阅读的 pdf 可以上传到电脑上,以便后期随时查看.chrome 有 pdf 的解析功能很好用.
+* 文件拖动到网页上传文件
 
 ![pdf](./pictures/3.png)
+
+* 网页查看日志
+  
+![log](./pictures/log.png)
+
+* 整合 Chat Gpt
+![ai](./pictures/ai.png)
+
+
+## 模块方案
+### 搭建云服务器
+
+### 网站备案
+
+### Nginx 配置
+
+### Netty 深度使用/源码分析
+
+### Netty restApi 路由器 Router 实现
+
+### 本项目前端总结
+
+### Docker 使用
+
+### ChatGpt 整合搭建
+
+### Jenkins 持续集成
+
+### 设计模式
+
+### 内网穿透方案设计与实现
+
+### 产品自驱
+
+
+## 细化知识点
+### Mysql/JDBC 集成使用
+
+### apk 生成二维码
+
+### 注解/反射解耦实现

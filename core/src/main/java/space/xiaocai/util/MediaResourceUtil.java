@@ -75,7 +75,7 @@ public class MediaResourceUtil {
 
                 raf.seek(start);
                 ctx.write(response);
-                ChannelFuture sendFileFuture = ctx.write(new DefaultFileRegion(raf.getChannel(), start, requestSize), ctx.newProgressivePromise());
+                ChannelFuture sendFileFuture = ctx.writeAndFlush(new DefaultFileRegion(raf.getChannel(), start, requestSize), ctx.newProgressivePromise());
                 sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
                     @Override
                     public void operationProgressed(ChannelProgressiveFuture future, long progress, long total) throws Exception {
@@ -97,7 +97,7 @@ public class MediaResourceUtil {
             } else {
                 LogUtil.logInfo("headers not contains range");
                 ctx.write(response);
-                ctx.write(new ChunkedFile(raf, 0, length, 8192), ctx.newProgressivePromise());
+                ctx.writeAndFlush(new ChunkedFile(raf, 0, length, 8192), ctx.newProgressivePromise());
             }
 
             ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
